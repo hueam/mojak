@@ -33,12 +33,15 @@ public class CircleMove : MonoBehaviour
     }
     public void Match()
     {
-        
-        if(Physics2D.OverlapCircle(_outerTrm.position, 0.5f, 1 << 9))
+
+        if (Physics2D.OverlapCircle(_outerTrm.position, 0.5f, 1 << 9))
         {
             Block block = Physics2D.OverlapCircle(_outerTrm.position, 0.5f, 1 << 9).GetComponent<Block>();
-            block.OnBlock(_outerTrm);
-            ChangeCircle();
+            if (BlockManager.instance.ChangeBlock(block))
+            {
+                block.OnBlock(_outerTrm);
+                ChangeCircle();
+            }
         }
         else
         {
